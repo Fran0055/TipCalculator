@@ -152,7 +152,7 @@
                     Grid.Row="5"
                     Grid.Column="1"
                     Text="$550.00"
-                    HorizontalTextAlignment="End"/>
+                    HorizontalTextAlignment="End"  />
             </Grid>
         </Border>
     </Grid>
