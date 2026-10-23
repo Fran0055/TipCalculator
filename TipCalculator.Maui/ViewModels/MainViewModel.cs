@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using TipCalculator.Maui.Models;
 
 
@@ -16,6 +17,8 @@ namespace TipCalculator.Maui.ViewModels
 
         //variables de instancia para resultados de la IU
         [ObservableProperty]
+        public string _importeDelConsumoDuplicado;
+        [ObservableProperty]
         public string _importeDelConsumoPorPersona;
         [ObservableProperty]
         public string _importeDeLaPropina;
@@ -28,7 +31,9 @@ namespace TipCalculator.Maui.ViewModels
 
         public MainViewModel()
         {
+            Limpiar();
         }
+        [RelayCommand]
         public void CalcularPropina()
         {
 
@@ -45,7 +50,9 @@ namespace TipCalculator.Maui.ViewModels
                     new ConsumoCompartido(
                         importeDelConsumo,
                         numeroDePersonas,
-                        porcentajeDePropina); ImporteDelConsumoPorPersona = consumo.ImporteDelConsumoPorPersona.ToString("C2");
+                        porcentajeDePropina);
+                ImporteDelConsumoDuplicado = consumo.ImporteDelConsumo.ToString("C2");
+                ImporteDelConsumoPorPersona = consumo.ImporteDelConsumoPorPersona.ToString("C2");
                 ImporteDeLaPropina =
                     consumo.ImporteDeLaPropina.ToString("C2");
                 ImporteDeLaPropinaPorPersona =
@@ -56,22 +63,26 @@ namespace TipCalculator.Maui.ViewModels
                     consumo.ImporteTotalConPropinaPorPersona.ToString("C2");
             }
         }
-            public void Limpiar()
+        [RelayCommand]
+        public void Limpiar()
         {
+            ImporteDelConsumoDuplicado = string.Empty;
             ImporteDelConsumo = string.Empty;
-            NumeroDePersonas = string.Empty;
-            PorcentajeDePropinas = string.Empty;
-                ImporteDelConsumoPorPersona = string.Empty;
-            ImporteDeLaPropina = string.Empty;
-
+            NumeroDePersonas = "1";
+            PorcentajeDePropinas = "10";
+            ImporteDelConsumoPorPersona = string.Empty;
+           ImporteDeLaPropina = string.Empty;
             ImporteDeLaPropinaPorPersona = string.Empty;
-
             ImporteTotalConPropina = string.Empty;
-
             ImporteTotalConPropinaPorPersona = string.Empty;
-                
         }
-            }
+
+        [RelayCommand]
+        public void ActualizarPorcentajeDePropina(string nuevoPorcentaje)
+        {
+            PorcentajeDePropinas = nuevoPorcentaje;
         }
+    }
+}
 
     
